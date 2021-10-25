@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace ArithmeticSequenceTask
 {
@@ -20,7 +20,32 @@ namespace ArithmeticSequenceTask
         /// <exception cref="ArgumentException">Throw if count less than zero.</exception>
         public static int Calculate(int number, int add, int count)
         {
-            throw new NotImplementedException("You need to implement this method.");
+            if ((number == int.MaxValue && add > 0) || (number == int.MinValue && add < 0))
+            {
+                throw new OverflowException();
+            }
+
+            if (count < 0)
+            {
+                throw new ArgumentException("{0}", nameof(count));
+            }
+
+            int number1 = number;
+            for (int i = 0; i < count; i++)
+            {
+                int sumOfAdd = 0;
+                for (int j = 0; j < i; j++)
+                {
+                    sumOfAdd += add;
+                }
+
+                if (i != 0)
+                {
+                    number = number + sumOfAdd + number1;
+                }
+            }
+
+            return number;
         }
     }
 }
